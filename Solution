@@ -1,0 +1,75 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+    public static String[] ArrayGenerator(String str) {
+        String []arr1 = new String[str.length()];
+        int dim = 0, counter = 0;
+        for(int i = 0; i < str.length(); i++) {
+            StringBuffer sb = new StringBuffer(str.charAt(i));
+            int f = 0;
+            if(i > 1) {
+                f = str.indexOf(str.charAt(i));
+                if(f > 0 && f < i)
+                    continue;
+            }
+            else
+                ;
+            counter++;
+            for(int j= 0; j<str.length(); j++){
+                if(str.charAt(i) == str.charAt(j))
+                    sb.append(str.charAt(j));
+            }
+            dim = counter-1;
+            arr1[dim] = sb.toString();
+        }
+        String arr2[] = new String[dim];
+        for(int i = 0; i<dim ; i++)
+            arr2[i] = arr1[i];
+        return arr2;
+    }
+    public static int frequency(String []arr) {
+        int f1 = 0, f2 = 0, f3 = 0, f = 0;
+        f1 = (arr[0]).length();
+        f2 = (arr[1]).length();
+        if(arr.length > 2)
+            f3 = (arr[2]).length();
+
+        if (arr.length == 2)
+            f = f1;
+        else {
+            if (f1 == f2)
+                f = f1;
+            else if (f1 == f3)
+                f = f1;
+            else if(f2 == f3)
+                f = f2;
+        }
+        return f;
+    }
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner in = new Scanner(System.in);
+        String str = in.nextLine();
+        if(str.length() == 1){
+            System.out.println("NO");
+            return;
+        }
+        int f=0;
+        String subArray[] = ArrayGenerator(str);
+        if(subArray.length == 1){
+            System.out.println("NO");
+            return;
+        }
+        else
+            f = frequency(subArray);
+        if((str.length() - (f*subArray.length)) == 0 || (str.length() - (f*subArray.length)) == 1)
+            System.out.println("YES");
+        else
+            System.out.println("NO");
+    } 
+}
